@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!--Import jQuery before materialize.js-->
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header  active">
+                            <i class="material-icons">place</i> Vila Nova
+                            <span class="badge">1</span></div>
+                        <div class="collapsible-body">
+                            <div id="map"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript">
+        function initMap() {
+            //-26.9072268,-49.0856214,16z
+            var uluru = { lat: -26.9072268, lng: -49.0856214 };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 20,
+                center: uluru
+            });
+            var marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+                icon: 'icons/ox.png'
+            });
+            setInterval(function () {
+                var currentPosition = marker.getPosition();
+                marker.setPosition({ lat: currentPosition.lat() + 0.000001, lng: currentPosition.lng() + 0.000001 });
+            }, 1000);
+        }
+        $(document).ready(function () {
+            $('.collapsible').collapsible();
+        });
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSs8O8TIvOC38qaZ9cJZbdnNy99Td1_-Q&callback=initMap"></script>
+</body>
+
+</html>
